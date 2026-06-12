@@ -3,6 +3,7 @@ import json
 import urllib.parse
 from datetime import datetime
 from typing import Optional
+from fastapi.middleware.cors import CORSMiddleware
 
 import requests
 from fastapi import FastAPI, HTTPException
@@ -16,6 +17,14 @@ app = FastAPI(
     title="Netflix NFToken Generator API",
     description="API para generar enlaces NFToken a partir de cookies de Netflix",
     version="1.0.0"
+)
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["https://fmglobals.com/"],  # <-- Pon aquí tu página web exacta
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
 )
 
 # --- CONFIGURACIÓN Y CONSTANTES ORIGINALES ---
