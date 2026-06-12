@@ -19,12 +19,22 @@ app = FastAPI(
     version="1.0.0"
 )
 
+from fastapi.middleware.cors import CORSMiddleware
+
+# Agrega la URL exacta que te arroja el error en la consola
+origins = [
+    "https://fmglobals.com",
+    "https://www.fmglobals.com"  # Agregamos con 'www' por si las dudas
+]
+
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["https://fmglobals.com/"],  # <-- Pon aquí tu página web exacta
+    allow_origins=origins,
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
+    expose_headers=["*"],     # Fuerza a exponer los headers
+    max_age=3600,             # Guarda en caché la respuesta preflight por una hora
 )
 
 # --- CONFIGURACIÓN Y CONSTANTES ORIGINALES ---
